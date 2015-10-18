@@ -7,21 +7,21 @@
 - A felhasználók által felvett új tevékenységeket az operátor tudja elfogadni(elérhetővé tenni a lakóknak)
 
 ## endpoints
-GET     /                   főoldal
-GET     /login              bejelentkező oldal
-POST    /login              bejelentkezési adatok felküldése
-GET     /login/registrate   regisztrációs oldal
-POST    /login/registrate   regisztrációs adatok felküldése
-GET     /activities         tevékenység lista
-GET     /activities/add     új tevékenység oldal
-POST    /activities/add     új tevékenység adatainak felküldése
-GET     /room               saját szoba oldal
-POST    /room/:resid:actid  tevékenység kiadása
-GET     /room/list          szoba lista
-GET     /room/new/:roomid   kiválasztott szoba képernyője
-POST    /room/new/:roomid   kiválasztott szoba felküldése a 4 lakóval
-GET     /room/new/resident  új lakó hozzáadása
-POST    /room/new/resident  új lakó adatainak felküldése
+- GET     /                   főoldal
+- GET     /login              bejelentkező oldal
+- POST    /login              bejelentkezési adatok felküldése
+- GET     /login/registrate   regisztrációs oldal
+- POST    /login/registrate   regisztrációs adatok felküldése
+- GET     /activities         tevékenység lista
+- GET     /activities/add     új tevékenység oldal
+- POST    /activities/add     új tevékenység adatainak felküldése
+- GET     /room               saját szoba oldal
+- POST    /room/:resid:actid  tevékenység kiadása
+- GET     /room/list          szoba lista
+- GET     /room/new/:roomid   kiválasztott szoba képernyője
+- POST    /room/new/:roomid   kiválasztott szoba felküldése a 4 lakóval
+- GET     /room/new/resident  új lakó hozzáadása
+- POST    /room/new/resident  új lakó adatainak felküldése
 
 ## adatmodell
 
