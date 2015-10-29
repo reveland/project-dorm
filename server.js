@@ -111,7 +111,11 @@ app.use('/', indexRouter);
 
 app.use('/login', loginRouter);
 
-app.get('/operator', function(req, res) {
+app.get('/operator/', function(req, res) {
+  res.render('operator/index');
+});
+
+app.get('/operator/room', function(req, res) {
   /*
     app.models.room.create({
       number: 1
@@ -133,11 +137,38 @@ app.get('/operator', function(req, res) {
   req.app.models.room.find()
     .then(function(rooms) {
       console.log(rooms);
-      res.render('operator/index', {
+      res.render('operator/room/index', {
         rooms: rooms
       });
     });
+});
 
+app.get('/operator/resident', function(req, res) {
+  /*
+    app.models.room.create({
+      number: 1
+    }).exec(function createCB(err, created) {
+      console.log('Created room with number ' + 1);
+    });
+  
+    app.models.room.create({
+      number: 2
+    }).exec(function createCB(err, created) {
+      console.log('Created room with number ' + 2);
+    });
+    app.models.room.create({
+      number: 3
+    }).exec(function createCB(err, created) {
+      console.log('Created room with number ' + 3);
+    });
+    */
+  req.app.models.resident.find()
+    .then(function(resident) {
+      console.log(resident);
+      res.render('operator/resident/index', {
+        resident: resident
+      });
+    });
 });
 
 app.get('/operator/room/new', function(req, res) {
@@ -148,8 +179,46 @@ app.get('/operator/room/new', function(req, res) {
     }).exec(function createCB(err, created) {
       console.log('Created room with number ' + roomCount);
     });
-    res.redirect('/operator/')
+    res.redirect('/operator/room')
   });
+});
+
+app.get('/operator/resident/new', function(req, res) {
+  var validationErrors = (req.flash('validationErrors') || [{}]).pop();
+  var data = (req.flash('data') || [{}]).pop();
+
+  res.render('operator/resident/new', {
+    validationErrors: validationErrors,
+    data: data,
+  });
+});
+
+app.post('/operator/resident/new', function(req, res) {
+  req.checkBody('name', 'Hibás név').notEmpty().withMessage('Kötelező megadni!');
+  req.sanitizeBody('leiras').escape();
+  req.checkBody('description', 'Hibás leírás').notEmpty().withMessage('Kötelező megadni!');
+
+  var validationErrors = req.validationErrors(true);
+  console.log(validationErrors);
+
+  if (validationErrors) {
+    req.flash('validationErrors', validationErrors);
+    req.flash('data', req.body);
+    res.redirect('/operator/resident/new');
+  }
+  else {
+    req.app.models.resident.create({
+        name: req.body.name,
+        description: req.body.description
+      })
+      .then(function(resident) {
+        req.flash('info', 'Hiba sikeresen felvéve!');
+        res.redirect('/operator/resident');
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  }
 });
 
 //Passport Router
