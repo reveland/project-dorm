@@ -5,31 +5,37 @@
     </div>
 {{/each}}
 
+
 <div class="page-header">
-    <h1>Regisztráció</h1>
+    <h1>Profil adatok:</h1>
 </div>
 
 <form class="form-horizontal" method="post">
     <fieldset>
-        <div class="form-group">
+        <div>
             <label for="name" class="col-lg-2 control-label">Név</label>
             <div class="col-lg-10">
-                <input class="form-control" id="name" name="name" type="text">
+                <input class="form-control" id="name" name="name" placeholder='{{user.name}}' type="text" value="{{data.name}}">
             </div>
+            {{#if validationErrors.name}}
+                <span class="help-block">{{validationErrors.name.msg}}</span> {{/if}}
         </div>
-        <div class="form-group">
-            <label for="email" class="col-lg-2 control-label">Email Cím</label>
+        <div>
+            <label for="email" class="col-lg-2 control-label">Email cím</label>
             <div class="col-lg-10">
-                <input class="form-control" id="email" name="email" type="text">
+                <input class="form-control" id="email" name="email" placeholder='{{user.email}}' type="text" value="{{data.email}}">
             </div>
+            {{#if validationErrors.email}}
+                <span class="help-block">{{validationErrors.email.msg}}</span> {{/if}}
         </div>
-        <div class="form-group">
+        <div>
             <label for="password" class="col-lg-2 control-label">Jelszó</label>
             <div class="col-lg-10">
-                <input class="form-control" type="password" id="password" name="password">
+                <input class="form-control" id="password" name="password" placeholder=*** type="text" value="{{data.password}}">
             </div>
+            {{#if validationErrors.password}}
+                <span class="help-block">{{validationErrors.password.msg}}</span> {{/if}}
         </div>
-        
         <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2">
                 <button type="reset" class="btn btn-default">Cancel</button>

@@ -24,10 +24,12 @@
                 <li><a href="/operator">Operátor</a></li>
                 <li><a href="/activities">Tevékenységek</a></li>
                 {{#if loggedIn}}
-                <li><a href="/room">Szobám</a></li>
+                <li><a href="/profile">Profilom</a></li>
+                <li><a href="/myRoom">Szobám</a></li>
                 <li><a href="/logout">Log out</a></li>
                 <p class="navbar-text navbar-right">Üdv, {{user.name}}!</p>
-                 {{else}}
+                {{else}}
+                <li><a href="/login">Bejelentkezés</a></li>
                 <li><a href="/auth/facebook">Login with Facebook</a></li>
                 {{/if}}
               </ul>

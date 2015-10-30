@@ -8,20 +8,17 @@ router.get('/', function(req, res) {
         errorMessages: req.flash('error')
     });
 });
-
 router.post('/', passport.authenticate('local', {
-    successRedirect: '/errors/list',
+    successRedirect: '/myRoom',
     failureRedirect: '/login',
     failureFlash: true,
     badRequestMessage: 'Hiányzó adatok'
 }));
-
 router.get('/signup', function(req, res) {
     res.render('login/signup', {
         errorMessages: req.flash('error')
     });
 });
-
 router.post('/signup', passport.authenticate('local-signup', {
     successRedirect: '/login',
     failureRedirect: '/login/signup',
