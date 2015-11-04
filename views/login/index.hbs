@@ -11,16 +11,30 @@
 
 <form class="form-horizontal" method="post">
     <fieldset>
-        <div class="form-group">
+        <div class="form-group
+            {{#if validationErrors.email}}
+                has-error
+            {{/if}}
+        ">
             <label for="email" class="col-lg-2 control-label">Email Cím</label>
             <div class="col-lg-10">
                 <input class="form-control" id="email" name="email" type="text" value="{{data.email}}">
+                {{#if validationErrors.email}}
+                    <span class="help-block">{{validationErrors.email.msg}}</span>
+                {{/if}}
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group
+            {{#if validationErrors.password}}
+                has-error
+            {{/if}}
+        ">
             <label for="password" class="col-lg-2 control-label">Jelszó</label>
             <div class="col-lg-10">
                 <input class="form-control" type="password" id="password" name="password">
+                {{#if validationErrors.password}}
+                    <span class="help-block">{{validationErrors.password.msg}}</span>
+                {{/if}}
             </div>
         </div>
         <div class="form-group">

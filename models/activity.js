@@ -1,5 +1,5 @@
 module.exports = {
-    identity: 'resident',
+    identity: 'activity',
     connection: 'default',
 
     attributes: {
@@ -7,28 +7,25 @@ module.exports = {
             type: 'string',
             required: true
         },
-        description: {
-            type: 'string'
-        },
-        cond_energy: {
+        alter_energy: {
             type: 'integer',
             required: true,
-            defaultsTo: 50
+            defaultsTo: 0
         },
-        cond_empotional_wb: {
+        alter_empotional_wb: {
             type: 'integer',
             required: true,
-            defaultsTo: 50
+            defaultsTo: 0
         },
-        cond_physical_wb: {
+        alter_physical_wb: {
             type: 'integer',
             required: true,
-            defaultsTo: 50
+            defaultsTo: 0
         },
-        cond_money: {
+        alter_money: {
             type: 'integer',
             required: true,
-            defaultsTo: 50
+            defaultsTo: 0
         }
     }
 };

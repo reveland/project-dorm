@@ -1,3 +1,10 @@
+{{#each messages}}
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        {{this}}
+    </div>
+{{/each}}
+
 <div class="page-header">
     <h1>Lakók</h1>
 </div>
@@ -7,14 +14,24 @@
         <tr>
             <th>Név</th>
             <th>Leírás</th>
+            <th>Energia</th>
+            <th>Kedv</th>
+            <th>Egészség</th>
+            <th>Pénz</th>
+            <th>Törlés</th>
         </tr>
     </thead>
     <tbody>
         {{#each resident}}
-        <tr>
-            <td>{{name}}</td>
-            <td>{{description}}</td>
-        </tr>
+            <tr>
+                <td>{{name}}</td>
+                <td>{{description}}</td>
+                <td>{{cond_energy}}</td>
+                <td>{{cond_empotional_wb}}</td>
+                <td>{{cond_physical_wb}}</td>
+                <td>{{cond_money}}</td>
+                <td><a class="btn btn-danger btn-sm delete-btn" href="/operator/resident/delete/{{id}}" role="button">Törlés</a></td>
+            </tr>
         {{/each}}
     </tbody>
 </table>
