@@ -28,7 +28,7 @@ module.exports = {
       required: true
     },
     room: {
-      type: 'room'
+      model: 'room'
     },
     role: {
       type: 'string',
@@ -41,12 +41,14 @@ module.exports = {
     }
   },
   beforeCreate: function(values, next) {
-    bcrypt.hash(values.password, 10, function(err, hash) {
-      if (err) {
-        return next(err);
-      }
-      values.password = hash;
-      next();
-    });
+    if (!typeof values.password === 'undefined') {
+      bcrypt.hash(values.password, 10, function(err, hash) {
+        if (err) {
+          return next(err);
+        }
+        values.password = hash;
+      });
+    }
+    next();
   }
 };

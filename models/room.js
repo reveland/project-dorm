@@ -10,10 +10,16 @@ module.exports = {
         occupied: {
             type: 'boolean',
             defaultsTo: false,
-            boolean: true
+            boolean: true,
+            required: true
         },
         residents: {
             collection: 'resident',
+            via: 'room',
+            dominant: true
+        },
+        user: {
+            model: 'user'
         }
     }
 };

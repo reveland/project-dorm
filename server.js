@@ -6,18 +6,22 @@ var flash = require('connect-flash');
 var Waterline = require('waterline');
 var passport = require('passport');
 
-var facebookConfig = require('./config/facebook')
+var facebookConfig = require('./config/facebook');
 var waterlineConfig = require('./config/waterline');
 var userCollection = require('./models/user');
 var roomCollection = require('./models/room');
 var residentCollection = require('./models/resident');
+var activityCollection = require('./models/activity');
 
 var indexRouter = require('./routers/index');
 var loginRouter = require('./routers/login');
-
-//==========================================================
+var facebookRouter = require('./routers/facebook');
+var myroomRouter = require('./routers/myroom');
+var operatorRouter = require('./routers/operator');
+var activityRouter = require('./routers/activity');
 
 var FacebookStrategy = require('passport-facebook').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -26,15 +30,69 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
+// Local Strategy for sign-up
+passport.use('local-signup', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true,
+  },
+  function(req, email, password, done) {
+    req.app.models.user.findOne({
+      email: email
+    }, function(err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (user) {
+        return done(null, false, {
+          message: 'Létező email.'
+        });
+      }
+      req.app.models.user.create(req.body)
+        .then(function(user) {
+          return done(null, user);
+        })
+        .catch(function(err) {
+          return done(null, false, {
+            message: err.details
+          });
+        })
+    });
+  }
+));
+// Local Strategy for Log-in
+passport.use('local', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true,
+  },
+  function(req, email, password, done) {
+    req.app.models.user.findOne({
+      email: email
+    }, function(err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (!user || !user.validPassword(password)) {
+        return done(null, false, {
+          message: 'Helytelen adatok.'
+        });
+      }
+      return done(null, user);
+    });
+  }
+));
+// Facebook Strategy
 passport.use(new FacebookStrategy({
     clientID: facebookConfig.facebook_api_key,
     clientSecret: facebookConfig.facebook_api_secret,
-    callbackURL: facebookConfig.callback_url
+    callbackURL: facebookConfig.callback_url,
+    profileFields: ['id', 'displayName', 'emails']
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
       app.models.user.findOne({
-        facebook_id: profile.id
+        email: profile.emails[0].value
       }, function(err, user) {
         if (err) {
           return done(err);
@@ -45,13 +103,15 @@ passport.use(new FacebookStrategy({
         }
         else {
           app.models.user.create({
-              id: profile.id,
-              name: profile.displayName
+              fbid: profile.id,
+              name: profile.displayName,
+              email: profile.emails[0].value
             })
             .then(function(user) {
               return done(null, user);
             })
             .catch(function(err) {
+              console.log(err);
               return done(null, false, {
                 message: err.details
               });
@@ -62,7 +122,7 @@ passport.use(new FacebookStrategy({
   }
 ));
 
-// Middleware segédfüggvény
+// Middleware segédfüggvények
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -78,7 +138,17 @@ function setLocalsForLayout() {
   }
 }
 
-//-------------------------------------------
+function andRestrictTo(role) {
+  return function(req, res, next) {
+    if (req.user.role == role) {
+      next();
+    }
+    else {
+      req.flash('UnauthorizedError', new Error('UnauthorizedError'));
+      res.redirect('/');
+    }
+  }
+}
 //  express app
 var app = express();
 
@@ -91,10 +161,16 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-app.use(expressValidator());
+app.use(expressValidator({
+  customValidators: {
+    between: function(param, low, high) {
+      return param >= low & param <= high;
+    }
+  }
+}));
 app.use(session({
   cookie: {
-    maxAge: 60000
+    maxAge: 600000
   },
   secret: 'titkos szoveg',
   resave: false,
@@ -111,134 +187,30 @@ app.use('/', indexRouter);
 
 app.use('/login', loginRouter);
 
-app.get('/operator/', function(req, res) {
-  res.render('operator/index');
-});
+app.use('/auth/facebook', facebookRouter);
 
-app.get('/operator/room', function(req, res) {
-  /*
-    app.models.room.create({
-      number: 1
-    }).exec(function createCB(err, created) {
-      console.log('Created room with number ' + 1);
-    });
-  
-    app.models.room.create({
-      number: 2
-    }).exec(function createCB(err, created) {
-      console.log('Created room with number ' + 2);
-    });
-    app.models.room.create({
-      number: 3
-    }).exec(function createCB(err, created) {
-      console.log('Created room with number ' + 3);
-    });
-    */
-  req.app.models.room.find()
-    .then(function(rooms) {
-      console.log(rooms);
-      res.render('operator/room/index', {
-        rooms: rooms
-      });
-    });
-});
-
-app.get('/operator/resident', function(req, res) {
-  /*
-    app.models.room.create({
-      number: 1
-    }).exec(function createCB(err, created) {
-      console.log('Created room with number ' + 1);
-    });
-  
-    app.models.room.create({
-      number: 2
-    }).exec(function createCB(err, created) {
-      console.log('Created room with number ' + 2);
-    });
-    app.models.room.create({
-      number: 3
-    }).exec(function createCB(err, created) {
-      console.log('Created room with number ' + 3);
-    });
-    */
-  req.app.models.resident.find()
-    .then(function(resident) {
-      console.log(resident);
-      res.render('operator/resident/index', {
-        resident: resident
-      });
-    });
-});
-
-app.get('/operator/room/new', function(req, res) {
-  app.models.room.count({}).exec(function countCB(error, roomCount) {
-    console.log('Created room with number ' + roomCount);
-    app.models.room.create({
-      number: roomCount
-    }).exec(function createCB(err, created) {
-      console.log('Created room with number ' + roomCount);
-    });
-    res.redirect('/operator/room')
-  });
-});
-
-app.get('/operator/resident/new', function(req, res) {
-  var validationErrors = (req.flash('validationErrors') || [{}]).pop();
-  var data = (req.flash('data') || [{}]).pop();
-
-  res.render('operator/resident/new', {
-    validationErrors: validationErrors,
-    data: data,
-  });
-});
-
-app.post('/operator/resident/new', function(req, res) {
-  req.checkBody('name', 'Hibás név').notEmpty().withMessage('Kötelező megadni!');
-  req.sanitizeBody('leiras').escape();
-  req.checkBody('description', 'Hibás leírás').notEmpty().withMessage('Kötelező megadni!');
-
-  var validationErrors = req.validationErrors(true);
-  console.log(validationErrors);
-
-  if (validationErrors) {
-    req.flash('validationErrors', validationErrors);
-    req.flash('data', req.body);
-    res.redirect('/operator/resident/new');
-  }
-  else {
-    req.app.models.resident.create({
-        name: req.body.name,
-        description: req.body.description
-      })
-      .then(function(resident) {
-        req.flash('info', 'Hiba sikeresen felvéve!');
-        res.redirect('/operator/resident');
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-  }
-});
-
-//Passport Router
-app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-  }),
-  function(req, res) {
-    res.redirect('/');
-  });
 app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
 
+//app.use('/operator', ensureAuthenticated, andRestrictTo('operator'), operatorRouter);
+app.use('/operator', operatorRouter);
+
+app.use('/myroom', ensureAuthenticated, myroomRouter);
+
+app.use('/activity', activityRouter);
+
+app.get('/profile/', ensureAuthenticated, function(req, res) {
+  res.render('profile/index');
+});
+
+// ORM config
 var orm = new Waterline();
 orm.loadCollection(Waterline.Collection.extend(userCollection));
 orm.loadCollection(Waterline.Collection.extend(roomCollection));
 orm.loadCollection(Waterline.Collection.extend(residentCollection));
+orm.loadCollection(Waterline.Collection.extend(activityCollection));
 
 // ORM indítása
 orm.initialize(waterlineConfig, function(err, models) {
