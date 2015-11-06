@@ -26,6 +26,9 @@ module.exports = {
             type: 'integer',
             required: true,
             defaultsTo: 0
+        },
+        user: {
+            model: 'user'
         }
     }
 };
