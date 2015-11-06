@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
     });
 });
 router.post('/', passport.authenticate('local', {
-    successRedirect: '/myRoom',
+    successRedirect: '/myroom',
     failureRedirect: '/login',
     failureFlash: true,
     badRequestMessage: 'Hiányzó adatok'
@@ -20,7 +20,7 @@ router.get('/signup', function(req, res) {
     });
 });
 router.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/login',
+    successRedirect: '/myroom',
     failureRedirect: '/login/signup',
     failureFlash: true,
     badRequestMessage: 'Hiányzó adatok'

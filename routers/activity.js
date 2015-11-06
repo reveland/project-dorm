@@ -24,11 +24,11 @@ router.get('/new', function(req, res) {
 });
 
 router.post('/new', function(req, res) {
-    req.checkBody('name',                   'Hibás megnevezés').notEmpty().withMessage('Kötelező megadni!');
-    req.checkBody('alter_energy',           'Must be between -50 and 50').notEmpty().between(-50, 50).isInt().withMessage('Kötelező megadni!');
-    req.checkBody('alter_empotional_wb',    'Must be between -50 and 50').notEmpty().between(-50, 50).isInt().withMessage('Kötelező megadni!');
-    req.checkBody('alter_physical_wb',      'Must be between -50 and 50').notEmpty().between(-50, 50).isInt().withMessage('Kötelező megadni!');
-    req.checkBody('alter_money',            'Must be between -50 and 50').notEmpty().between(-50, 50).isInt().withMessage('Kötelező megadni!');
+    req.checkBody('name', 'Hibás megnevezés').notEmpty().withMessage('Kötelező megadni!');
+    req.checkBody('alter_energy', 'Must be between -50 and 50').notEmpty().withMessage('Kötelező megadni!').isInt().between(-50, 50);
+    req.checkBody('alter_empotional_wb', 'Must be between -50 and 50').notEmpty().withMessage('Kötelező megadni!').isInt().between(-50, 50);
+    req.checkBody('alter_physical_wb', 'Must be between -50 and 50').notEmpty().withMessage('Kötelező megadni!').isInt().between(-50, 50);
+    req.checkBody('alter_money', 'Must be between -50 and 50').notEmpty().withMessage('Kötelező megadni!').isInt().between(-50, 50);
 
     var validationErrors = req.validationErrors(true);
     console.log(validationErrors);
@@ -36,7 +36,7 @@ router.post('/new', function(req, res) {
     if (validationErrors) {
         req.flash('validationErrors', validationErrors);
         req.flash('data', req.body);
-        res.redirect('activity/new');
+        res.redirect('/activity/new');
     }
     else {
         req.app.models.activity.create({
