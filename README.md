@@ -6,7 +6,9 @@
 - A felhasználó tudjon további tevékenységeket felvenni
 - A felhasználók által felvett új tevékenységeket az operátor tudja elfogadni(elérhetővé tenni a lakóknak)
 
-## endpoints
+## Tervezés
+
+### endpoints
 - GET   /                           főoldal
 - GET   /login                      bejelentkező oldal
 - POST  /login                      bejelentkezési adatok felküldése
@@ -34,14 +36,28 @@
 - POST   /operator/resident/new                   
 - GET   /operator/resident/delete/:id                   
 
-## adatmodell
+### adatmodell
 
 ![adatmodell](docs/images/adatmodell.png)
 
-## állapotdiagram
+### állapotdiagram
 
 ![állapotdiagram](docs/images/allapotdiagram.png)
 
-## komponensdiagram
+### komponensdiagram
 
 ![komponensdiagram](docs/images/komponensdiagram.png)
+
+## Implementáció
+
+c9 ide-t használtam.
+
+## Tesztelés
+
+Még hátra van
+
+## Felhasználói dokumentáció
+
+Magától értetődő
+
+Ha mégis kérdésed lenne: support@nemvalidemailcim.com
