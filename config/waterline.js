@@ -1,7 +1,6 @@
 var memoryAdapter = require('sails-memory');
 var diskAdapter = require('sails-disk');
 
-// konfiguráció
 module.exports = {
     adapters: {
         memory: memoryAdapter,

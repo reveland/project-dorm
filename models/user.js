@@ -37,18 +37,47 @@ module.exports = {
       defaultsTo: 'user'
     },
     validPassword: function(password) {
-      return bcrypt.compareSync(password, this.password);
+      if (typeof this.password !== 'undefined') {
+        return bcrypt.compareSync(password, this.password);
+      }
+      else {
+        return true;
+      }
     }
   },
-  beforeCreate: function(values, next) {
-    if (!typeof values.password === 'undefined') {
+
+  beforeUpdate: function(values, next) {
+    if (typeof values.password !== 'undefined') {
+      console.log('if')
       bcrypt.hash(values.password, 10, function(err, hash) {
         if (err) {
           return next(err);
         }
         values.password = hash;
+        next();
       });
     }
-    next();
+    else {
+      console.log('else')
+      next();
+    }
+  },
+
+  beforeCreate: function(values, next) {
+    if (typeof values.password !== 'undefined') {
+      console.log('if')
+      bcrypt.hash(values.password, 10, function(err, hash) {
+        if (err) {
+          return next(err);
+        }
+        values.password = hash;
+        next();
+      });
+    }
+    else {
+      console.log('else')
+      next();
+    }
+
   }
 };

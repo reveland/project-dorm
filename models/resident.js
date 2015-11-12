@@ -37,10 +37,10 @@ module.exports = {
         },
 
         doActivity: function(activity) {
-            this.cond_energy        += activity.alter_energy;
+            this.cond_energy += activity.alter_energy;
             this.cond_empotional_wb += activity.alter_empotional_wb;
-            this.cond_physical_wb   += activity.alter_physical_wb;
-            this.cond_money         += activity.alter_money;
+            this.cond_physical_wb += activity.alter_physical_wb;
+            this.cond_money += activity.alter_money;
         }
     }
 };

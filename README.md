@@ -7,21 +7,32 @@
 - A felhasználók által felvett új tevékenységeket az operátor tudja elfogadni(elérhetővé tenni a lakóknak)
 
 ## endpoints
-- GET     /                   főoldal
-- GET     /login              bejelentkező oldal
-- POST    /login              bejelentkezési adatok felküldése
-- GET     /login/registrate   regisztrációs oldal
-- POST    /login/registrate   regisztrációs adatok felküldése
-- GET     /activities         tevékenység lista
-- GET     /activities/add     új tevékenység oldal
-- POST    /activities/add     új tevékenység adatainak felküldése
-- GET     /room               saját szoba oldal
-- POST    /room/:resid:actid  tevékenység kiadása
-- GET     /room/list          szoba lista
-- GET     /room/new/:roomid   kiválasztott szoba képernyője
-- POST    /room/new/:roomid   kiválasztott szoba felküldése a 4 lakóval
-- GET     /room/new/resident  új lakó hozzáadása
-- POST    /room/new/resident  új lakó adatainak felküldése
+- GET   /                           főoldal
+- GET   /login                      bejelentkező oldal
+- POST  /login                      bejelentkezési adatok felküldése
+- GET   /login/signup               regisztrációs oldal
+- POST  /login/signup               regisztrációs adatok felküldése
+- GET   /auth/facebook              facebook bejelentkezés oldal
+- GET   /auth/facebook/callback     facebook callback oldal
+- GET   /logout                     kijelentkezés
+- GET   /profile                    profil odlal
+- GET   /profile/change/password    jelszó változtatás
+- GET   /profile/change/password    jelszó változtatás
+- GET   /activity                   tevékenység lista
+- GET   /activity/new               új tevékenység oldal
+- POST  /activity/new               új tevékenység adatainak felküldése
+- GET   /myroom                     saját szoba oldal
+- POST  /myroom                     form elküldése, ami kiadja x lakónak y tevékenységet (TODO ezt nagyon nem így kéne)
+- GET   /myroom/occupy/:id          :id szoba elfoglalása
+- GET   /myroom/addresident         új lakó hozzáadása
+- POST  /myroom/addresident         új lakó adatainak felküldése
+- GET   /operator                   operátor oldal
+- GET   /operator/room                   
+- GET   /operator/room/new                   
+- GET   /operator/resident                   
+- GET   /operator/resident/new                   
+- POST   /operator/resident/new                   
+- GET   /operator/resident/delete/:id                   
 
 ## adatmodell
 

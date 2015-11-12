@@ -55,31 +55,32 @@ router.get('/resident/new', function(req, res) {
     });
 });
 
-router.post('/resident/new', function(req, res) {req.checkBody('name', 'Hibás név').notEmpty().withMessage('Kötelező megadni!');
-req.sanitizeBody('description').escape();
-req.checkBody('description', 'Hibás leírás').notEmpty().withMessage('Kötelező megadni!');
+router.post('/resident/new', function(req, res) {
+    req.checkBody('name', 'Hibás név').notEmpty().withMessage('Kötelező megadni!');
+    req.sanitizeBody('description').escape();
+    req.checkBody('description', 'Hibás leírás').notEmpty().withMessage('Kötelező megadni!');
 
-var validationErrors = req.validationErrors(true);
-console.log(validationErrors);
+    var validationErrors = req.validationErrors(true);
+    console.log(validationErrors);
 
-if (validationErrors) {
-    req.flash('validationErrors', validationErrors);
-    req.flash('data', req.body);
-    res.redirect('/operator/resident/new');
-}
-else {
-    req.app.models.resident.create({
-            name: req.body.name,
-            description: req.body.description
-        })
-        .then(function(resident) {
-            req.flash('info', 'Lakó sikeresen felvéve!');
-            res.redirect('/operator/resident');
-        })
-        .catch(function(err) {
-            console.log(err);
-        });
-}
+    if (validationErrors) {
+        req.flash('validationErrors', validationErrors);
+        req.flash('data', req.body);
+        res.redirect('/operator/resident/new');
+    }
+    else {
+        req.app.models.resident.create({
+                name: req.body.name,
+                description: req.body.description
+            })
+            .then(function(resident) {
+                req.flash('info', 'Lakó sikeresen felvéve!');
+                res.redirect('/operator/resident');
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
+    }
 });
 
 router.get('/resident/delete/:id', function(req, res) {
@@ -89,7 +90,7 @@ router.get('/resident/delete/:id', function(req, res) {
         })
         .then(function(deletedErrors) {
             res.redirect('/operator/resident/');
-        })
+        });
 });
 
 module.exports = router;

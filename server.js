@@ -19,6 +19,7 @@ var facebookRouter = require('./routers/facebook');
 var myroomRouter = require('./routers/myroom');
 var operatorRouter = require('./routers/operator');
 var activityRouter = require('./routers/activity');
+var profileRouter = require('./routers/profile');
 
 var FacebookStrategy = require('passport-facebook').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
@@ -115,7 +116,7 @@ passport.use(new FacebookStrategy({
               return done(null, false, {
                 message: err.details
               });
-            })
+            });
         }
       });
     });
@@ -127,7 +128,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login')
+  res.redirect('/login');
 }
 
 function setLocalsForLayout() {
@@ -135,7 +136,7 @@ function setLocalsForLayout() {
     res.locals.loggedIn = req.isAuthenticated();
     res.locals.user = req.user;
     next();
-  }
+  };
 }
 
 function andRestrictTo(role) {
@@ -147,8 +148,9 @@ function andRestrictTo(role) {
       req.flash('UnauthorizedError', new Error('UnauthorizedError'));
       res.redirect('/');
     }
-  }
+  };
 }
+
 //  express app
 var app = express();
 
@@ -201,9 +203,7 @@ app.use('/myroom', ensureAuthenticated, myroomRouter);
 
 app.use('/activity', activityRouter);
 
-app.get('/profile/', ensureAuthenticated, function(req, res) {
-  res.render('profile/index');
-});
+app.use('/profile/', ensureAuthenticated, profileRouter);
 
 // ORM config
 var orm = new Waterline();
