@@ -118,6 +118,7 @@ router.post('/', function(req, res) {
             id: req.body.resident
         })
         .then(function(resident) {
+            console.log(resident);
             req.app.models.activity.findOne({
                     id: req.body.activity
                 })

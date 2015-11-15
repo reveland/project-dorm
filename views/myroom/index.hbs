@@ -1,3 +1,10 @@
+{{#each messages}}
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        {{this}}
+    </div>
+{{/each}}
+
 {{#if user.hasRoom }}
     <div class="page-header">
         <h1>Szobaszámod: {{ room.number }}</h1>

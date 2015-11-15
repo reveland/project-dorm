@@ -21,9 +21,15 @@
     "sails-memory": "^0.10.5",
     "waterline": "^0.10.26"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "mocha": "^2.3.3",
+    "selenium-standalone": "^4.7.1",
+    "selenium-webdriver": "^2.47.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node_modules/mocha/bin/mocha **/*.test.js",
+    "watch-test": "node_modules/mocha/bin/mocha --watch **/*.test.js",
     "start": "node server.js"
   },
   "repository": {
@@ -31,7 +37,6 @@
     "url": "https://github.com/reveland/project-dorm.git"
   },
   "author": "me",
-  "license": "me",
   "bugs": {
     "url": "https://github.com/reveland/project-dorm/issues"
   },
