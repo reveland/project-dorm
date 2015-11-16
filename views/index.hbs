@@ -1,7 +1,17 @@
+{{#each messages}}
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        {{this}}
+    </div>
+{{/each}}
+
 <div>
     <h1>Project-dorm</h1>
 </div>
 
 <p>
-    {{#if UnauthorizedError}} Unauthorized! {{/if}}
+    {{#if UnauthorizedError}}
+        Unauthorized!
+        <a href="/addroom">Add room hack</a>
+    {{/if}}
 </p>
