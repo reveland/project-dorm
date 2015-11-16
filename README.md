@@ -5,6 +5,7 @@ A felhasználó tudjon:
 - Szobafoglalást követően tudjon új lakókat hozzáadni a szobához.
 - Új tevékenységeket megadni.
 - Tevékenységeket magadni a lakóinak.
+
 Az operátor tudjon:
 - Új szobákat felvenni és törölni
 - Új lakókat felvenni és törölni
