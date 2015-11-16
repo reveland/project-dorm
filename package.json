@@ -23,9 +23,7 @@
   },
   "devDependencies": {
     "chai": "^3.3.0",
-    "mocha": "^2.3.3",
-    "selenium-standalone": "^4.7.1",
-    "selenium-webdriver": "^2.47.0"
+    "mocha": "^2.3.3"
   },
   "scripts": {
     "test": "node_modules/mocha/bin/mocha **/*.test.js",

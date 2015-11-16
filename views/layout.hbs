@@ -21,15 +21,18 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
+                {{#ifvalue user.role equals="operator"}}
                 <li><a href="/operator">Operátor</a></li>
-                <li><a href="/activity">Tevékenységek</a></li>
+                {{/ifvalue}}
+                <li><a id="activity" href="/activity">Tevékenységek</a></li>
                 {{#if loggedIn}}
-                <li><a href="/profile">Profilom</a></li>
-                <li><a href="/myroom">Szobám</a></li>
-                <li><a href="/logout">Log out</a></li>
+                <li><a id="profile" href="/profile">Profilom</a></li>
+                <li><a id="myroom" href="/myroom">Szobám</a></li>
+                <li><a id="logout" href="/logout">Log out</a></li>
                 <p class="navbar-text navbar-right">Üdv, {{user.name}}!</p>
                 {{else}}
-                <li><a href="/login">Bejelentkezés</a></li>
+                <li><a id="login" href="/login">Bejelentkezés</a></li>
+                <li><a id="signup" href="/login/signup">Regisztráció</a></li>
                 <li><a href="/auth/facebook">Login with Facebook</a></li>
                 {{/if}}
               </ul>

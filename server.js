@@ -5,6 +5,7 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var Waterline = require('waterline');
 var passport = require('passport');
+var hbs = require('hbs');
 
 var facebookConfig = require('./config/facebook');
 var waterlineConfig = require('./config/waterline');
@@ -157,6 +158,13 @@ var app = express();
 //config
 app.set('views', './views');
 app.set('view engine', 'hbs');
+hbs.registerHelper("ifvalue", function(conditional, options) {
+    if (conditional == options.hash.equals) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+});
 
 //middlewares
 app.use(express.static('public'));
@@ -196,8 +204,8 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-//app.use('/operator', ensureAuthenticated, andRestrictTo('operator'), operatorRouter);
-app.use('/operator', operatorRouter);
+app.use('/operator', ensureAuthenticated, andRestrictTo('operator'), operatorRouter);
+//app.use('/operator', operatorRouter);
 
 app.use('/myroom', ensureAuthenticated, myroomRouter);
 

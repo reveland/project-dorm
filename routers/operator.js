@@ -34,6 +34,16 @@ router.get('/room/new', function(req, res) {
     });
 });
 
+router.get('/room/delete/:id', function(req, res) {
+    var id = req.params.id;
+    req.app.models.room.destroy({
+            id: id
+        })
+        .then(function(deletedRoom) {
+            res.redirect('/operator/room/');
+        });
+});
+
 router.get('/resident', function(req, res) {
     req.app.models.resident.find()
         .then(function(resident) {

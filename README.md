@@ -1,10 +1,13 @@
 # project-dorm
 ## Követelményfeltárás
-- A felhasználó tudjon választani egyet az elérhető szobák közül. 
-- Egy üres szoba kiválasztása után tudjon létrehozni egy lakót név és tulajdonság pontok elosztásával, ezt követően kap maga mellé 3 másik lakót  és lezárhatja a szobafoglalást
-- Sikeres szobafoglalás után tevékenységeket oszthat ki a szoba lakóinak, amik hatással vannak az állapotukra(energia, éhség, stb.)
-- A felhasználó tudjon további tevékenységeket felvenni
-- A felhasználók által felvett új tevékenységeket az operátor tudja elfogadni(elérhetővé tenni a lakóknak)
+A felhasználó tudjon:
+- választani egyet az elérhető szobák közül és abba beköltözni.
+- Szobafoglalást követően tudjon új lakókat hozzáadni a szobához.
+- Új tevékenységeket megadni.
+- Tevékenységeket magadni a lakóinak.
+Az operátor tudjon:
+- Új szobákat felvenni és törölni
+- Új lakókat felvenni és törölni
 
 ## Tervezés
 
@@ -33,7 +36,7 @@
 - GET   /operator/room/new                   
 - GET   /operator/resident                   
 - GET   /operator/resident/new                   
-- POST   /operator/resident/new                   
+- POST  /operator/resident/new                   
 - GET   /operator/resident/delete/:id                   
 
 ### adatmodell
@@ -50,14 +53,21 @@
 
 ## Implementáció
 
-c9 ide-t használtam.
+A webalkalmazás Node.js szoftverrendszerben lett megírva, cloud 9 ide segítségével.
+Teszteléshez használtam még Java Selenium IDE-t, Eclipse fejlesztői környezetben.
 
 ## Tesztelés
 
-Még hátra van
+Az user model tesztelve van chai/mocha segítségével:
+- regisztráció email/jelszó párral
+- regisztráció facebookal
+- jelszó módosítás
+- user keresése
+Projekten kívül futtatható Selenium test lefedi a login/signup lépéseket
+- próbál helytelen email/jelszó párral belépni
+- próbál helyes email/jelszó párral belépni
+- regisztrál egy új felhasználót
 
 ## Felhasználói dokumentáció
 
-Magától értetődő
-
-Ha mégis kérdésed lenne: support@nemvalidemailcim.com
+Magától értetődő (nincsen)
