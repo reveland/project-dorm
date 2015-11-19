@@ -36,7 +36,7 @@ module.exports = {
             via: 'residents'
         },
 
-        doActivity: function(activity) {
+        doActivity: function (activity) {
             this.cond_energy += activity.alter_energy;
             this.cond_empotional_wb += activity.alter_empotional_wb;
             this.cond_physical_wb += activity.alter_physical_wb;

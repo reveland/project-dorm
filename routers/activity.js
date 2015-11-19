@@ -2,9 +2,9 @@ var express = require('express');
 
 var router = express.Router();
 
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     req.app.models.activity.find()
-        .then(function(activity) {
+        .then(function (activity) {
             console.log(activity);
             res.render('activity/list', {
                 activity: activity,
@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
         });
 });
 
-router.get('/new', function(req, res) {
+router.get('/new', function (req, res) {
     var validationErrors = (req.flash('validationErrors') || [{}]).pop();
     var data = (req.flash('data') || [{}]).pop();
 
@@ -23,7 +23,7 @@ router.get('/new', function(req, res) {
     });
 });
 
-router.post('/new', function(req, res) {
+router.post('/new', function (req, res) {
     req.checkBody('name', 'Hibás megnevezés').notEmpty().withMessage('Kötelező megadni!');
     req.checkBody('alter_energy', 'Must be between -50 and 50').notEmpty().withMessage('Kötelező megadni!').isInt().between(-50, 50);
     req.checkBody('alter_empotional_wb', 'Must be between -50 and 50').notEmpty().withMessage('Kötelező megadni!').isInt().between(-50, 50);
@@ -46,11 +46,11 @@ router.post('/new', function(req, res) {
                 alter_physical_wb: req.body.alter_physical_wb,
                 alter_money: req.body.alter_money,
             })
-            .then(function(activity) {
+            .then(function (activity) {
                 req.flash('info', 'Tevékenység sikeresen felvéve!');
                 res.redirect('/activity');
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
             });
     }

@@ -12,44 +12,45 @@
     {{#if room.occupied }}
         <div>
             <h2>Lakók</h2>
+
             <form class="form-horizontal" method="post">
-                    <select class="form-control" id="activity" name="activity">
-                        {{#each activity}}
-                            <option value="{{id}}">{{name}}</option>
-                        {{/each}}
-                    </select>
-                    <select class="form-control" id="resident" name="resident">
-                        {{#each residents}}
-                            <option value="{{id}}">{{name}}</option>
-                        {{/each}}
-                    </select>
-                    <button type="submit" class="btn btn-primary">Do It</button>
+                <select class="form-control" id="activity" name="activity">
+                    {{#each activity}}
+                        <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+                <select class="form-control" id="resident" name="resident">
+                    {{#each residents}}
+                        <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                </select>
+                <button type="submit" class="btn btn-primary">Do It</button>
             </form>
             <table class="table table-striped table-hover ">
                 <thead>
-                    <tr>
-                        <th>Név</th>
-                        <th>Leírás</th>
-                        <th>Energia</th>
-                        <th>Kedv</th>
-                        <th>Egészség</th>
-                        <th>Pénz</th>
-                    </tr>
+                <tr>
+                    <th>Név</th>
+                    <th>Leírás</th>
+                    <th>Energia</th>
+                    <th>Kedv</th>
+                    <th>Egészség</th>
+                    <th>Pénz</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {{#each residents}}
-                        <tr>
-                            <td>{{name}}</td>
-                            <td>{{description}}</td>
-                            <td>{{cond_energy}}</td>
-                            <td>{{cond_empotional_wb}}</td>
-                            <td>{{cond_physical_wb}}</td>
-                            <td>{{cond_money}}</td>
-                        </tr>
-                    {{/each}}
+                {{#each residents}}
+                    <tr>
+                        <td>{{name}}</td>
+                        <td>{{description}}</td>
+                        <td>{{cond_energy}}</td>
+                        <td>{{cond_empotional_wb}}</td>
+                        <td>{{cond_physical_wb}}</td>
+                        <td>{{cond_money}}</td>
+                    </tr>
+                {{/each}}
                 </tbody>
             </table>
-        <p><a href="/myroom/addresident" class="btn btn-default">Új lakó felvitele</a></p>
+            <p><a href="/myroom/addresident" class="btn btn-default">Új lakó felvitele</a></p>
         </div>
     {{else}}
         <p><a href="/myroom/addresident" class="btn btn-default">Új lakó felvitele</a></p>
@@ -57,20 +58,20 @@
 {{else}}
     <table class="table table-striped table-hover ">
         <thead>
-            <tr>
-                <th>Szobaszám</th>
-                <th>Foglelt-e</th>
-                <th>befoglalás</th>
-            </tr>
+        <tr>
+            <th>Szobaszám</th>
+            <th>Foglelt-e</th>
+            <th>befoglalás</th>
+        </tr>
         </thead>
         <tbody>
-            {{#each rooms}}
-                <tr>
-                    <td>{{number}}</td>
-                    <td>{{occupied}}</td>
-                    <td><a class="btn btn-sm occupy-btn" href="/myroom/occupy/{{id}}" role="button">Foglal</a></td>
-                </tr>
-            {{/each}}
+        {{#each rooms}}
+            <tr>
+                <td>{{number}}</td>
+                <td>{{occupied}}</td>
+                <td><a class="btn btn-sm occupy-btn" href="/myroom/occupy/{{id}}" role="button">Foglal</a></td>
+            </tr>
+        {{/each}}
         </tbody>
     </table>
 {{/if}}

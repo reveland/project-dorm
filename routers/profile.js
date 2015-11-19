@@ -2,10 +2,10 @@ var express = require('express');
 
 var router = express.Router();
 
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     res.render('profile/index');
 });
-router.get('/change/password', function(req, res) {
+router.get('/change/password', function (req, res) {
     var validationErrors = (req.flash('validationErrors') || [{}]).pop();
 
     res.render('profile/password', {
@@ -13,7 +13,7 @@ router.get('/change/password', function(req, res) {
     });
 });
 
-router.post('/change/password', function(req, res) {
+router.post('/change/password', function (req, res) {
     console.log(req.body);
     req.checkBody('new_pwd', 'Hibás új jelszó').notEmpty().withMessage('Kötelező megadni!');
     req.checkBody('old_pwd', 'Hibás jelenlegi jelszó').notEmpty().withMessage('Kötelező megadni!');
@@ -27,8 +27,9 @@ router.post('/change/password', function(req, res) {
     else {
         req.app.models.user.findOne({
             id: req.user.id
-        }, function(err, user) {
-            if (err) {}
+        }, function (err, user) {
+            if (err) {
+            }
             if (!user.validPassword(req.body.old_pwd)) {
                 //Helytelen jelenlegi jelszó
                 req.flash('errorMessages', 'Helytelen jelenlegi jelszó!');
@@ -40,7 +41,7 @@ router.post('/change/password', function(req, res) {
                     }, {
                         password: req.body.new_pwd
                     })
-                    .then(function(user) {
+                    .then(function (user) {
                         req.flash('info', 'Jelszó sikeresen megváltoztatva!');
                         res.redirect('/profile');
                     });

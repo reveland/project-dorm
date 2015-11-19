@@ -10,11 +10,13 @@
             {{/if}}
         ">
             <label for="name" class="col-lg-2 control-label">Név</label>
+
             <div class="col-lg-10">
-                <input class="form-control" id="name" name="name" placeholder="Teszt Elek" type="text" value="{{data.name}}">
+                <input class="form-control" id="name" name="name" placeholder="Teszt Elek" type="text"
+                       value="{{data.name}}">
             </div>
             {{#if validationErrors.name}}
-            <span class="help-block">{{validationErrors.name.msg}}</span> {{/if}}
+                <span class="help-block">{{validationErrors.name.msg}}</span> {{/if}}
         </div>
         <div class="form-group
             {{#if validationErrors.description}}
@@ -22,11 +24,13 @@
             {{/if}}
         ">
             <label for="description" class="col-lg-2 control-label">Leírás</label>
+
             <div class="col-lg-10">
-                <textarea class="form-control" rows="3" id="description" name="description">{{data.description}}</textarea>
+                <textarea class="form-control" rows="3" id="description"
+                          name="description">{{data.description}}</textarea>
             </div>
             {{#if validationErrors.description}}
-            <span class="help-block">{{validationErrors.description.msg}}</span> {{/if}}
+                <span class="help-block">{{validationErrors.description.msg}}</span> {{/if}}
         </div>
         <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2">

@@ -2,14 +2,14 @@ var express = require('express');
 
 var router = express.Router();
 
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
 
     res.render('operator/index');
 });
 
-router.get('/room', function(req, res) {
+router.get('/room', function (req, res) {
     req.app.models.room.find()
-        .then(function(rooms) {
+        .then(function (rooms) {
             console.log(rooms);
             res.render('operator/room/index', {
                 rooms: rooms,
@@ -18,35 +18,35 @@ router.get('/room', function(req, res) {
         });
 });
 
-router.get('/room/new', function(req, res) {
+router.get('/room/new', function (req, res) {
     req.app.models.room.count({}).exec(function countCB(error, roomCount) {
         console.log('Created room with number ' + roomCount);
         req.app.models.room.create({
                 number: roomCount
             })
-            .then(function(resident) {
+            .then(function (resident) {
                 req.flash('info', 'Szoba sikeresen felvéve!');
                 res.redirect('/operator/room');
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
             });
     });
 });
 
-router.get('/room/delete/:id', function(req, res) {
+router.get('/room/delete/:id', function (req, res) {
     var id = req.params.id;
     req.app.models.room.destroy({
             id: id
         })
-        .then(function(deletedRoom) {
+        .then(function (deletedRoom) {
             res.redirect('/operator/room/');
         });
 });
 
-router.get('/resident', function(req, res) {
+router.get('/resident', function (req, res) {
     req.app.models.resident.find()
-        .then(function(resident) {
+        .then(function (resident) {
             console.log(resident);
             res.render('operator/resident/index', {
                 resident: resident,
@@ -55,7 +55,7 @@ router.get('/resident', function(req, res) {
         });
 });
 
-router.get('/resident/new', function(req, res) {
+router.get('/resident/new', function (req, res) {
     var validationErrors = (req.flash('validationErrors') || [{}]).pop();
     var data = (req.flash('data') || [{}]).pop();
 
@@ -65,7 +65,7 @@ router.get('/resident/new', function(req, res) {
     });
 });
 
-router.post('/resident/new', function(req, res) {
+router.post('/resident/new', function (req, res) {
     req.checkBody('name', 'Hibás név').notEmpty().withMessage('Kötelező megadni!');
     req.sanitizeBody('description').escape();
     req.checkBody('description', 'Hibás leírás').notEmpty().withMessage('Kötelező megadni!');
@@ -83,22 +83,22 @@ router.post('/resident/new', function(req, res) {
                 name: req.body.name,
                 description: req.body.description
             })
-            .then(function(resident) {
+            .then(function (resident) {
                 req.flash('info', 'Lakó sikeresen felvéve!');
                 res.redirect('/operator/resident');
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
             });
     }
 });
 
-router.get('/resident/delete/:id', function(req, res) {
+router.get('/resident/delete/:id', function (req, res) {
     var id = req.params.id;
     req.app.models.resident.destroy({
             id: id
         })
-        .then(function(deletedErrors) {
+        .then(function (deletedErrors) {
             res.redirect('/operator/resident/');
         });
 });
