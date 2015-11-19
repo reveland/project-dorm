@@ -11,6 +11,7 @@ A Project Dorm egy szóval kifejezve egy kollégista-nevelde, viszont ellentétb
 - Az operátor tudjon:
     * Új szobákat felvenni és törölni
     * Új lakókat felvenni és törölni
+
 ## 2. Tervezés
 ### 2.1 Endpoints
 Method | URL | description
