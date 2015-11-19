@@ -74,18 +74,29 @@ Az user model tesztelésére chai és mocha node modulokat használtam, a teszte
 - regisztráció facebookal
 - jelszó módosítás
 - user keresése
+
 ### 4.2 Funkcionális felületi tesztek
 Projekten kívül futtatható Selenium test lefedi a login/signup lépéseket:
 - próbál helytelen email/jelszó párral belépni
 - próbál helyes email/jelszó párral belépni
 - regisztrál egy új felhasználót
+
 ## 5. Felhasználói dokumentáció
+
 ### 5.1 Oldalak bemutatása
+
 - Főoldal
+
 ![Főoldal](docs/images/fooldal.png)
+
 - Tevékenységek oldal, tevékenységek listája látható, illetve itt lehet új tevékenységet felvenni
+
 ![Tevékenységek oldal](docs/images/activity.png)
+
 - Új tevékenység hozzáadásának az oldala
+
 ![Új tevékenység oldal](docs/images/new-activity.png)
+
 - Bejelentkezés oldal
+
 ![Bejelentkezés oldal](docs/images/login.png)
