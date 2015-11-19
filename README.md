@@ -3,14 +3,14 @@
 ### 1.1 Összefoglaló
 A Project Dorm egy szóval kifejezve egy kollégista-nevelde, viszont ellentétben más neveldékkel itt teljes egészében a felhasználók töltik fel tartalommal a játékteret, jelen pillanatban ez a lakók és a tevékenységek megadását jelenti.
 ### 1.2 Funkciók
-#### A felhasználó tudjon:
-- Választani egyet az elérhető szobák közül és abba beköltözni. (szobákat jelenleg az operátor tud felvenni)
-- Szobafoglalást követően tudjon új lakókat hozzáadni a szobához. (a lakó nevének és leírásának megadásával)
-- Új tevékenységeket megadni.(a leírás nevének és állapot befolyásoló hatásainak emgadásával)
-- Tevékenységeket kiadni a lakóinak.
-#### Az operátor tudjon:
-- Új szobákat felvenni és törölni
-- Új lakókat felvenni és törölni
+- A felhasználó tudjon:
+    * Választani egyet az elérhető szobák közül és abba beköltözni. (szobákat jelenleg az operátor tud felvenni)
+    * Szobafoglalást követően tudjon új lakókat hozzáadni a szobához. (a lakó nevének és leírásának megadásával)
+    * Új tevékenységeket megadni.(a leírás nevének és állapot befolyásoló hatásainak emgadásával)
+    * Tevékenységeket kiadni a lakóinak.
+- Az operátor tudjon:
+    * Új szobákat felvenni és törölni
+    * Új lakókat felvenni és törölni
 ## 2. Tervezés
 ### 2.1 Endpoints
 Method | URL | description
@@ -35,12 +35,12 @@ GET  | /myroom/occupy/:id     |     :id szoba elfoglalása
 GET  | /myroom/addresident    |     új lakó hozzáadása
 POST | /myroom/addresident    |     új lakó adatainak felküldése
 GET  | /operator               |    operátor oldal
-GET  | /operator/room         |          
-GET  | /operator/room/new      |             
-GET  | /operator/resident      |             
-GET  | /operator/resident/new   |                
-POST | /operator/resident/new   |                
-GET  | /operator/resident/delete/:id |      
+GET  | /operator/room               
+GET  | /operator/room/new              
+GET  | /operator/resident             
+GET  | /operator/resident/new              
+POST | /operator/resident/new               
+GET  | /operator/resident/delete/:id 
 ### 2.2 Adatmodell
 ![adatmodell](docs/images/adatmodell.png)
 ### 2.3 Állapotdiagram
@@ -79,11 +79,11 @@ Projekten kívül futtatható Selenium test lefedi a login/signup lépéseket:
 - regisztrál egy új felhasználót
 ## 5. Felhasználói dokumentáció
 ### 5.1 Oldalak bemutatása
-#### Főoldal
+- Főoldal
 ![Főoldal](docs/images/fooldal.png)
-#### Tevékenységek oldal, tevékenységek listája látható, illetve itt lehet új tevékenységet felvenni
+- Tevékenységek oldal, tevékenységek listája látható, illetve itt lehet új tevékenységet felvenni
 ![Tevékenységek oldal](docs/images/activity.png)
-#### Új tevékenység hozzáadásának az oldala
+- Új tevékenység hozzáadásának az oldala
 ![Új tevékenység oldal](docs/images/new-activity.png)
-#### Bejelentkezés oldal
+- Bejelentkezés oldal
 ![Bejelentkezés oldal](docs/images/login.png)
