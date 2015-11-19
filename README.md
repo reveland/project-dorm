@@ -53,19 +53,20 @@ GET  | /operator/resident/delete/:id
 A fejlesztés a [Cloud 9](https://c9.io/) felhő alapú IDE-ben zajlott, illetve lokálisan a JetBrains [WebStorm](https://www.jetbrains.com/webstorm/) IDE-jében. (Valamint funcionális felületi teszt Eclipseben lett megírva Selenium-ot használva, de erre nem vagyok büszke)
 ### 3.2 Szoftvercsomagok
 A webalkalmazás [Node.js](https://github.com/nodejs/node) szoftverrendszer segítségével készült, a felhasznált modulok listája: 
--    [bcryptjs](https://www.npmjs.com/package/bcryptjs)
- -   [body-parser](https://www.npmjs.com/package/bcryptjs)
-  -  [body-parser](https://www.npmjs.com/package/bcryptjs)
-   - [express](https://www.npmjs.com/package/bcryptjs)
-    -[express-session](https://www.npmjs.com/package/bcryptjs)
--    [express-validator](https://www.npmjs.com/package/bcryptjs)
- -   [hbs](https://www.npmjs.com/package/bcryptjs)
-  -  [passport](https://www.npmjs.com/package/bcryptjs)
-   - [passport-facebook](https://www.npmjs.com/package/bcryptjs)
-    -[passport-local](https://www.npmjs.com/package/bcryptjs)
--    [sails-disk](https://www.npmjs.com/package/bcryptjs)
- -   [sails-memory](https://www.npmjs.com/package/bcryptjs)
-  -  [waterline](https://www.npmjs.com/package/bcryptjs)
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+- [body-parser](https://www.npmjs.com/package/bcryptjs)
+- [body-parser](https://www.npmjs.com/package/bcryptjs)
+- [express](https://www.npmjs.com/package/bcryptjs)
+- [express-session](https://www.npmjs.com/package/bcryptjs)
+- [express-validator](https://www.npmjs.com/package/bcryptjs)
+- [hbs](https://www.npmjs.com/package/bcryptjs)
+- [passport](https://www.npmjs.com/package/bcryptjs)
+- [passport-facebook](https://www.npmjs.com/package/bcryptjs)
+- [passport-local](https://www.npmjs.com/package/bcryptjs)
+- [sails-disk](https://www.npmjs.com/package/bcryptjs)
+- [sails-memory](https://www.npmjs.com/package/bcryptjs)
+- [waterline](https://www.npmjs.com/package/bcryptjs)
+
 ## 4. Tesztelés
 ### 4.1 User Model
 Az user model tesztelésére chai és mocha node modulokat használtam, a tesztek a model következő részeit fedik le: 
